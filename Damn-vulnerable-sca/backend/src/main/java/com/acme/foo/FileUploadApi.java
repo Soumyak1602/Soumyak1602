@@ -37,7 +37,9 @@ public class FileUploadApi {
 			byte[] bytes = file.getBytes();
 			Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
 			Files.write(path, bytes);
-
+String fileName = file.getOriginalFilename();
+fileName = fileName.replaceAll("[\\/|\\|\?\*<>:\\r\\n]", "");
+Path path = Paths.get(UPLOAD_DIR + fileName);
 			Path zipPath = Paths.get(UPLOAD_DIR + file.getOriginalFilename() + ".xz");
 			LZMA2Options options = new LZMA2Options();
 			
