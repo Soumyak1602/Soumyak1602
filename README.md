@@ -1,4 +1,4 @@
-## Hi there 👋ok ok
+## Hi there 👋o
 nk
 
 **Soumyak1602/Soumyak1602** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
