@@ -1,168 +1,242 @@
-<p align="center">
-    <img src="/static/images/logo.png" alt="SCA Goat">
-     <br>SCA Goat<br> Navigating SCA Vulnerabilities, Empowering Mastery<br> <p align="center">
-</p>
-</p>
+# ![Juice Shop Logo](https://raw.githubusercontent.com/juice-shop/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_100px.png) OWASP Juice Shop
 
+[![OWASP Flagship](https://img.shields.io/badge/owasp-flagship%20project-48A646.svg)](https://owasp.org/projects/#sec-flagships)
+[![GitHub release](https://img.shields.io/github/release/juice-shop/juice-shop.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
+[![Twitter Follow](https://img.shields.io/twitter/follow/owasp_juiceshop.svg?style=social&label=Follow)](https://twitter.com/owasp_juiceshop)
+[![Subreddit subscribers](https://img.shields.io/reddit/subreddit-subscribers/owasp_juiceshop?style=social)](https://reddit.com/r/owasp_juiceshop)
 
-## What is SCA-Goat?
+![CI/CD Pipeline](https://github.com/juice-shop/juice-shop/workflows/CI/CD%20Pipeline/badge.svg?branch=master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/test_coverage)](https://codeclimate.com/github/juice-shop/juice-shop/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/6206c8f3972bcc97a033/maintainability)](https://codeclimate.com/github/juice-shop/juice-shop/maintainability)
+[![Code Climate technical debt](https://img.shields.io/codeclimate/tech-debt/juice-shop/juice-shop)](https://codeclimate.com/github/juice-shop/juice-shop/trends/technical_debt)
+[![Cypress tests](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/3hrkhu/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/3hrkhu/runs)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/223/badge)](https://www.bestpractices.dev/projects/223)
+![GitHub stars](https://img.shields.io/github/stars/juice-shop/juice-shop.svg?label=GitHub%20%E2%98%85&style=flat)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-SCAGoat is an application for Software Composition Analysis (SCA) that focuses on vulnerable and compromised JAR dependencies used in development code, providing users with hands-on learning opportunities to understand potential attack scenarios. It is designed to identify vulnerabilities that may arise from using vulnerable JAR files.
+> [The most trustworthy online shop out there.](https://twitter.com/dschadow/status/706781693504589824)
+> ([@dschadow](https://github.com/dschadow)) —
+> [The best juice shop on the whole internet!](https://twitter.com/shehackspurple/status/907335357775085568)
+> ([@shehackspurple](https://twitter.com/shehackspurple)) —
+> [Actually the most bug-free vulnerable application in existence!](https://youtu.be/TXAztSpYpvE?t=26m35s)
+> ([@vanderaj](https://twitter.com/vanderaj)) —
+> [First you 😂😂then you 😢](https://twitter.com/kramse/status/1073168529405472768)
+> ([@kramse](https://twitter.com/kramse)) —
+> [But this doesn't have anything to do with juice.](https://twitter.com/coderPatros/status/1199268774626488320)
+> ([@coderPatros' wife](https://twitter.com/coderPatros))
 
-## ⚠️ WARNING: Educational Purpose Only ⚠️
+OWASP Juice Shop is probably the most modern and sophisticated insecure web application! It can be used in security
+trainings, awareness demos, CTFs and as a guinea pig for security tools! Juice Shop encompasses vulnerabilities from the
+entire
+[OWASP Top Ten](https://owasp.org/www-project-top-ten) along with many other security flaws found in real-world
+applications!
 
-This project contains deliberately vulnerable and malicious code for educational purposes. The xz-java-malicious package included in this project simulates a compromised library and should NEVER be used in production environments. This package is designed solely for training security professionals and for evaluating SCA tools.
+![Juice Shop Screenshot Slideshow](screenshots/slideshow.gif)
 
-## Presented at:
-- [DC32: Demo Labs](https://forum.defcon.org/node/249617)
-- [Appsec Village: Arsenal](https://www.appsecvillage.com/events/dc-2024/arsenal-scagoat-661284)
-- [Blackhat Europe 2024](https://www.blackhat.com/eu-24/arsenal/schedule/index.html#scagoat---exploiting-damn-vulnerable-sca-application-42139)
-- [Blackhat Asia 2025](https://www.blackhat.com/asia-25/arsenal/schedule/index.html#scagoat---exploiting-damn-vulnerable-and-compromised-sca-application-43960)
+For a detailed introduction, full list of features and architecture overview please visit the official project page:
+<https://owasp-juice.shop>
 
-## What All CVE Covered?
+## Table of contents
 
-The CVEs covered under SCAGoat are primarily critical and high severity, which have a CVSS score of 9. This aid in understanding the vulnerable package being used and its potential for exploitation. 
+- [Setup](#setup)
+    - [From Sources](#from-sources)
+    - [Packaged Distributions](#packaged-distributions)
+    - [Docker Container](#docker-container)
+    - [Vagrant](#vagrant)
+- [Demo](#demo)
+- [Documentation](#documentation)
+    - [Node.js version compatibility](#nodejs-version-compatibility)
+    - [Troubleshooting](#troubleshooting)
+    - [Official companion guide](#official-companion-guide)
+- [Contributing](#contributing)
+- [References](#references)
+- [Merchandise](#merchandise)
+- [Donations](#donations)
+- [Contributors](#contributors)
+- [Licensing](#licensing)
 
-In addition, there is one compromised package, that lacks a CVE, but is malicious by nature and cannot be detected with traditional SCA scanners.
+## Setup
 
-| CVE                        | Package Name    | Link  | 
-|----------------------------|-----------------|-------|
-| CVE-2023-42282             | IP              | [https://nvd.nist.gov/vuln/detail/CVE-2023-42282](https://nvd.nist.gov/vuln/detail/CVE-2023-42282) |     
-| CVE-2017-1000427           | Marked          | [https://nvd.nist.gov/vuln/detail/CVE-2017-1000427](https://nvd.nist.gov/vuln/detail/CVE-2017-1000427) |     
-| CVE-2017-16114             | Marked          | [https://github.com/markedjs/marked/issues/926](https://github.com/markedjs/marked/issues/926) |
-| CVE-2021-44228             | log4j           | [https://nvd.nist.gov/vuln/detail/CVE-2021-44228](https://nvd.nist.gov/vuln/detail/CVE-2021-44228)|
-| CVE-2020-9547              | jackson-databind | [https://nvd.nist.gov/vuln/detail/CVE-2020-9547](https://nvd.nist.gov/vuln/detail/CVE-2020-9547)|
-| CVE-2021-33623             | trim-newlines   | [https://nvd.nist.gov/vuln/detail/CVE-2021-33623](https://nvd.nist.gov/vuln/detail/CVE-2021-33623)|
-| CVE-2020-13935             | spring-websocket | [https://nvd.nist.gov/vuln/detail/CVE-2020-13935](https://nvd.nist.gov/vuln/detail/CVE-2020-13935)|
-| CVE-2019-10744             | lodash          | [https://nvd.nist.gov/vuln/detail/CVE-2019-10744](https://nvd.nist.gov/vuln/detail/CVE-2019-10744)|
-| CVE-2019-8331              | pug             | [https://nvd.nist.gov/vuln/detail/CVE-2019-8331](https://nvd.nist.gov/vuln/detail/CVE-2019-8331)|
-| CVE-2020-8116              | dot-prop        | [https://nvd.nist.gov/vuln/detail/CVE-2020-8116](https://nvd.nist.gov/vuln/detail/CVE-2020-8116)|
-| Malicious Package (No CVE) | xz-java         | [https://central.sonatype.com/artifact/io.github.xz-java/xz-java](https://central.sonatype.com/artifact/io.github.xz-java/xz-java)|
+> You can find some less common installation variations as well as instructions to run Juice Shop on a variety of cloud computing providers in
+> [the _Running OWASP Juice Shop_ documentation](https://pwning.owasp-juice.shop/companion-guide/latest/part1/running.html).
 
+### From Sources
 
+![GitHub repo size](https://img.shields.io/github/repo-size/juice-shop/juice-shop.svg)
 
-## Steps to run SCAGoat
-Step 1. Clone the application
-```bash
-git clone https://github.com/harekrishnarai/Damn-vulnerable-sca.git
-```
-Step 2. Go to the Directory
-```bash
-cd Damn-vulnerable-sca
-```
-Step 3. Use the following docker commands to build the image for the dockerfile and run the image to access the application:
-```bash
-docker compose up
-```
-Step 4. Visit http://localhost:3000/ to access the nodejs application and http://localhost:8080 for Springboot for log4j
+1. Install [node.js](#nodejs-version-compatibility)
+2. Run `git clone https://github.com/juice-shop/juice-shop.git --depth 1` (or
+   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
+   of the repository)
+3. Go into the cloned folder with `cd juice-shop`
+4. Run `npm install` (only has to be done before first start or when you change the source code)
+5. Run `npm start`
+6. Browse to <http://localhost:3000>
 
-## Compiling and Installing the Malicious XZ-Java Package Locally
+### Packaged Distributions
 
-To ensure SCAGoat functions correctly for training and SCA tool evaluations, you'll need to compile and install the xz-java-malicious package locally:
+[![GitHub release](https://img.shields.io/github/downloads/juice-shop/juice-shop/total.svg)](https://github.com/juice-shop/juice-shop/releases/latest)
+[![SourceForge](https://img.shields.io/sourceforge/dm/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
+[![SourceForge](https://img.shields.io/sourceforge/dt/juice-shop?label=sourceforge%20downloads)](https://sourceforge.net/projects/juice-shop/)
 
-1. Navigate to the xz-java-malicious directory:
-```bash
-cd xz-java-malicious
-```
+1. Install a 64bit [node.js](#nodejs-version-compatibility) on your Windows, MacOS or Linux machine
+2. Download `juice-shop-<version>_<node-version>_<os>_x64.zip` (or
+   `.tgz`) attached to
+   [latest release](https://github.com/juice-shop/juice-shop/releases/latest)
+3. Unpack and `cd` into the unpacked folder
+4. Run `npm start`
+5. Browse to <http://localhost:3000>
 
-2. Compile and install the package to your local Maven repository:
-```bash
-mvn clean install
-```
+> Each packaged distribution includes some binaries for `sqlite3` and
+> `libxmljs2` bound to the OS and node.js version which `npm install` was
+> executed on.
 
-3. Verify the installation:
-```bash
-mvn dependency:tree
-```
+### Docker Container
 
-4. After successful installation, add the malicious package to your .m2 repo by running following command
-```bash
-mvn install:install-file \
-  -Dfile=target/xz-java-1.9.2.jar \
-  -DgroupId=org.tukaani \
-  -DartifactId=xz \
-  -Dversion=1.9.2-malicious \
-  -Dpackaging=jar
-```
+[![Docker Pulls](https://img.shields.io/docker/pulls/bkimminich/juice-shop.svg)](https://hub.docker.com/r/bkimminich/juice-shop)
+![Docker Stars](https://img.shields.io/docker/stars/bkimminich/juice-shop.svg)
+[![](https://images.microbadger.com/badges/image/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
+"Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/bkimminich/juice-shop.svg)](https://microbadger.com/images/bkimminich/juice-shop
+"Get your own version badge on microbadger.com")
 
-5. Return to the main project directory:
-```bash
-cd ..
-```
+1. Install [Docker](https://www.docker.com)
+2. Run `docker pull bkimminich/juice-shop`
+3. Run `docker run --rm -p 127.0.0.1:3000:3000 bkimminich/juice-shop`
+4. Browse to <http://localhost:3000> (on macOS and Windows browse to
+   <http://192.168.99.100:3000> if you are using docker-machine instead of the native docker installation)
 
-6. Now you can run the full application with docker compose as mentioned above.
+### Vagrant
 
-### Important Notes:
-- The malicious package is deliberately designed to be undetectable by some SCA tools, making it an excellent training tool.
-- This package doesn't contain actual harmful code but simulates patterns of compromised libraries.
-- Use in isolated, educational environments only.
+1. Install [Vagrant](https://www.vagrantup.com/downloads.html) and
+   [Virtualbox](https://www.virtualbox.org/wiki/Downloads)
+2. Run `git clone https://github.com/juice-shop/juice-shop.git` (or
+   clone [your own fork](https://github.com/juice-shop/juice-shop/fork)
+   of the repository)
+3. Run `cd vagrant && vagrant up`
+4. Browse to [192.168.56.110](http://192.168.56.110)
 
-### SCA Goat HomePage
-![SCAGoat HomePage](https://github.com/user-attachments/assets/36cf4e09-5279-4b62-89ed-4fd5160f75c0)
+## Demo
 
-## Vulnerability Dashboard
+Feel free to have a look at the latest version of OWASP Juice Shop:
+<http://demo.owasp-juice.shop>
 
-SCAGoat features an interactive vulnerability dashboard that allows users to explore and understand different types of vulnerabilities:
+> This is a deployment-test and sneak-peek instance only! You are __not
+> supposed__ to use this instance for your own hacking endeavours! No
+> guaranteed uptime! Guaranteed stern looks if you break it!
 
-- **Marked (CVE-2017-16114)**: Cross-Site Scripting vulnerability in the Markdown parser
-- **Trim-Newlines (CVE-2021-33623)**: Regular Expression Denial of Service vulnerability
-- **Lodash (CVE-2019-10744)**: Critical prototype pollution vulnerability with CVSS 9.8
-- **Jackson-Databind (CVE-2020-9547)**: Deserialization vulnerability in the backend
-- **XZ-Java (Malicious)**: Compromised library demonstration
-- **WebSocket (CVE-2020-13935)**: Spring WebSocket vulnerability
-- **Log4j (CVE-2021-44228)**: Log4Shell vulnerability demonstration
-- **Pug (CVE-2019-8331)**: Denial of Service vulnerability in the template engine
-- **Dot-Prop (CVE-2020-8116)**: Prototype pollution vulnerability allowing property manipulation
+## Documentation
 
-Each vulnerability includes an interactive demo to help security professionals, developers, and students understand how these vulnerabilities work and how they can be exploited.
+### Node.js version compatibility
 
-## What's Coming?
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/cpu/bkimminich/juice-shop)
+![GitHub package.json dynamic](https://img.shields.io/github/package-json/os/bkimminich/juice-shop)
 
-Our aim is to provide you with a better understanding of vulnerable packages and JAR dependencies so that you can gain hands-on experience. We will keep you updated with the latest CVEs. Stay tuned! 
+OWASP Juice Shop officially supports the following versions of
+[node.js](http://nodejs.org) in line with the official
+[node.js LTS schedule](https://github.com/nodejs/LTS) as close as possible. Docker images and packaged distributions are
+offered accordingly.
 
-## Tutorials to exploit the vulnerability:
+| node.js | Supported              | Tested             | [Packaged Distributions](#packaged-distributions) | [Docker images](#docker-container) from `master` | [Docker images](#docker-container) from `develop` |
+|:--------|:-----------------------|:-------------------|:--------------------------------------------------|:-------------------------------------------------|:--------------------------------------------------|
+| 23.x    | :x:                    | :x:                |                                                   |                                                  |                                                   |
+| 22.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     | `latest` (`linux/amd64`, `linux/arm64`)          | `snapshot` (`linux/amd64`, `linux/arm64`)         |
+| 21.x    | ( :heavy_check_mark: ) | :x:                |                                                   |                                                  |                                                   |
+| 20.x    | :heavy_check_mark:     | :heavy_check_mark: | Windows (`x64`), MacOS (`x64`), Linux (`x64`)     |                                                  |                                                   |
+| <20.x   | :x:                    | :x:                |                                                   |                                                  |                                                   |
 
-|  Demo Videos | CVE Exploited |
-|---------------|-----------|
-| [Demo 1](https://www.youtube.com/watch?v=MXAuqGiB354) |    CVE-2023-42282 |           
-| [Demo 2](https://youtu.be/HgLKVtKh87w) |     CVE-2017-16114 |     
-| [Demo 3](https://youtu.be/BljNgBZxbgo) |     CVE-2021-44228 |
-| [Demo 4](https://youtu.be/BGGu9jAJQ1I) | CVE-2020-9547 |
-| [Demo 5](https://youtu.be/sWAzUP_uC7k) | XZ-JAVA compromised |
-| [Demo 6](https://youtu.be/X7Qd8jkVjAI) | CVE-2019-10744 (Lodash) |
-| [Demo 8]() | CVE-2019-8331 (Pug) |
-| [Demo 9]() | CVE-2020-8116 (Dot-Prop) |
+Juice Shop is automatically tested _only on the latest `.x` minor version_ of each node.js version mentioned above!
+There is no guarantee that older minor node.js releases will always work with Juice Shop!
+Please make sure you stay up to date with your chosen version.
 
-## SCA Scan Reports
-- [Link to SCAGoat Scan Reports](https://docs.google.com/document/d/1hJxweaRQsC3XH7t36UwOGBPbyZWX1ZjLtmOoJAI0nIc/edit?usp=sharing)
-- [Detailed Dependency Check Tool Report](https://drive.google.com/file/d/1u3pfSI2_t3MOXDtwAiJXOM4Ekdxd5v8H/view?usp=sharing)
+### Troubleshooting
 
-## UI Enhancements
+[![Gitter](http://img.shields.io/badge/gitter-join%20chat-1dce73.svg)](https://gitter.im/bkimminich/juice-shop)
 
-The SCAGoat application features a modern, responsive UI with the following features:
+If you need help with the application setup please check our
+[our existing _Troubleshooting_](https://pwning.owasp-juice.shop/companion-guide/latest/part4/troubleshooting.html)
+guide. If this does not solve your issue please post your specific problem or question in the
+[Gitter Chat](https://gitter.im/bkimminich/juice-shop) where community members can best try to help you.
 
-- Interactive vulnerability dashboard with informative cards
-- Dark mode interface with particle.js background
-- Detailed information about each vulnerability including CVSS scores
-- Real-time demonstration of exploits
-- Mobile-friendly responsive design
+:stop_sign: **Please avoid opening GitHub issues for support requests or questions!**
 
-## Want to contribute? 
-[![Fork this project](https://img.shields.io/github/forks/harekrishnarai/Damn-vulnerable-sca.svg?style=social)](https://github.com/harekrishnarai/Damn-vulnerable-sca/fork)
-[![Start contributing](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/harekrishnarai/Damn-vulnerable-sca/issues)
-<br>Awesome! The most basic way to show your support is to star the project or raise issues.
+### Official companion guide
+
+[![Write Goodreads Review](https://img.shields.io/badge/goodreads-write%20review-49557240.svg)](https://www.goodreads.com/review/edit/49557240)
+
+OWASP Juice Shop comes with an official companion guide eBook. It will give you a complete overview of all
+vulnerabilities found in the application including hints how to spot and exploit them. In the appendix you will even
+find complete step-by-step solutions to every challenge. Extensive documentation of
+[custom re-branding](https://pwning.owasp-juice.shop/companion-guide/latest/part4/customization.html),
+[CTF-support](https://pwning.owasp-juice.shop/companion-guide/latest/part4/ctf.html),
+[trainer's guide](https://pwning.owasp-juice.shop/companion-guide/latest/part4/trainers.html)
+and much more is also included.
+
+[Pwning OWASP Juice Shop](https://leanpub.com/juice-shop) is published under
+[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+and is available **for free** in PDF, Kindle and ePub format on LeanPub. You can also
+[browse the full content online](https://pwning.owasp-juice.shop)!
+
+[<img alt="Pwning OWASP Juice Shop cover" src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/cover.jpg" width="200"/>](https://leanpub.com/juice-shop)
+[<img alt="Pwning OWASP Juice Shop back cover" src="https://raw.githubusercontent.com/juice-shop/pwning-juice-shop/master/docs/modules/ROOT/assets/images/introduction/back.jpg" width="200"/>](https://leanpub.com/juice-shop)
+
+## Contributing
+
+[![GitHub contributors](https://img.shields.io/github/contributors/bkimminich/juice-shop.svg)](https://github.com/juice-shop/juice-shop/graphs/contributors)
+[![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+[![Crowdin](https://d322cqt584bo4o.cloudfront.net/owasp-juice-shop/localized.svg)](https://crowdin.com/project/owasp-juice-shop)
+![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/help%20wanted.svg)
+![GitHub issues by-label](https://img.shields.io/github/issues/bkimminich/juice-shop/good%20first%20issue.svg)
+
+We are always happy to get new contributors on board! Please check
+[CONTRIBUTING.md](CONTRIBUTING.md) to learn how to
+[contribute to our codebase](CONTRIBUTING.md#code-contributions) or the
+[translation into different languages](CONTRIBUTING.md#i18n-contributions)!
+
+## References
+
+Did you write a blog post, magazine article or do a podcast about or mentioning OWASP Juice Shop? Or maybe you held or
+joined a conference talk or meetup session, a hacking workshop or public training where this project was mentioned?
+
+Add it to our ever-growing list of [REFERENCES.md](REFERENCES.md) by forking and opening a Pull Request!
+
+## Merchandise
+
+* On [Spreadshirt.com](http://shop.spreadshirt.com/juiceshop) and
+  [Spreadshirt.de](http://shop.spreadshirt.de/juiceshop) you can get some swag (Shirts, Hoodies, Mugs) with the official
+  OWASP Juice Shop logo
+* On
+  [StickerYou.com](https://www.stickeryou.com/products/owasp-juice-shop/794)
+  you can get variants of the OWASP Juice Shop logo as single stickers to decorate your laptop with. They can also print
+  magnets, iron-ons, sticker sheets and temporary tattoos.
+
+## Donations
+
+[![](https://img.shields.io/badge/support-owasp%20juice%20shop-blue)](https://owasp.org/donate/?reponame=www-project-juice-shop&title=OWASP+Juice+Shop)
+
+The OWASP Foundation gratefully accepts donations via Stripe. Projects such as Juice Shop can then request reimbursement
+for expenses from the Foundation. If you'd like to express your support of the Juice Shop project, please make sure to
+tick the "Publicly list me as a supporter of OWASP Juice Shop" checkbox on the donation form. You can find our more
+about donations and how they are used here:
+
+<https://pwning.owasp-juice.shop/companion-guide/latest/part3/donations.html>
 
 ## Contributors
-Thanks to all the people who already contributed!  
-[Prashant Venkatesh](https://www.linkedin.com/in/prashant-venkatesh-99018999/)    
-[Nandan Gupta](https://www.linkedin.com/in/nandan-gupta-698aa11b)  
-[Hare Krishna Rai](https://www.linkedin.com/in/harekrishnarai/)  
-[Henrik Plate](https://www.linkedin.com/in/henrikplate/)  
-[Gaurav Joshi](https://www.linkedin.com/in/gauravjoshii/)  
-[Yoad Fekete](https://www.linkedin.com/in/yoadfekete) 
 
-<a href="https://github.com/harekrishnarai/Damn-vulnerable-sca/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=harekrishnarai/Damn-vulnerable-sca" />
-</a>
+The OWASP Juice Shop Project Leaders are:
 
+- [Björn Kimminich](https://github.com/bkimminich) aka `bkimminich` [![Keybase PGP](https://img.shields.io/keybase/pgp/bkimminich)](https://keybase.io/bkimminich)
+- [Jannik Hollenbach](https://github.com/J12934) aka `J12934`
 
+For a list of all contributors to the OWASP Juice Shop please visit our
+[HALL_OF_FAME.md](HALL_OF_FAME.md).
+
+## Licensing
+
+[![license](https://img.shields.io/github/license/bkimminich/juice-shop.svg)](LICENSE)
+
+This program is free software: you can redistribute it and/or modify it under the terms of the [MIT license](LICENSE).
+OWASP Juice Shop and any contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop contributors
+2014-2025.
+
+![Juice Shop Logo](https://raw.githubusercontent.com/bkimminich/juice-shop/master/frontend/src/assets/public/images/JuiceShop_Logo_400px.png)
